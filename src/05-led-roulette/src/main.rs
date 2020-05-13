@@ -18,11 +18,17 @@ fn main() -> ! {
 
     // 2. enable GPIOA and SYSCFG clocks
     let rcc = &dp.RCC;
+    // RCC AHB bus, enable GPIO A and E
     rcc.ahbenr.modify(|_, w| {
         w.iopaen().set_bit()
             .iopeen().set_bit()
     });
     rcc.apb2enr.modify(|_, w| w.syscfgen().set_bit());
+
+
+    let gpioe = &dp.GPIOE;
+    gpioe.moder.modify(|_, w| w.moder8().output());
+    gpioe.odr.modify(|_, w| w.odr8().set_bit());
 
     //let half_period = 500_u16;
 
