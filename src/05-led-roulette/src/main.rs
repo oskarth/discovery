@@ -76,6 +76,13 @@ fn EXTI0() {
     //     exti.pr1.modify(|_, w| w.pr0().set_bit());
     // });
 
+    // +0x14 PR1 address offset
+    unsafe {
+      let exti_pr1_addr = 0x4001_0414 as *mut u32;
+      //     exti.pr1.modify(|_, w| w.pr0().set_bit());
+      let p = core::ptr::read_volatile(exti_pr1_addr);
+      core::ptr::write_volatile(exti_pr1_addr, p | 1);
+    }
     dbg!("Hello world 2");
 
     // toggle LED4
