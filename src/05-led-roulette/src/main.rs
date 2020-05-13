@@ -3,12 +3,15 @@
 #![no_std]
 
 use aux5::{entry, prelude::*, Delay, Leds};
+use cortex_m_semihosting::dbg;
 
 #[entry]
 fn main() -> ! {
     let (mut delay, mut leds): (Delay, Leds) = aux5::init();
 
     let half_period = 500_u16;
+
+    dbg!("Hello world");
 
     loop {
         leds[0].on();
